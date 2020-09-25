@@ -3,6 +3,7 @@ package com.chars.muguildbusiness;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,10 +31,8 @@ public class MuGuildBusinessApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		String password = "any@gmal.com";
-		String result = passwordEncoder.encode(password);
+		String result = UUID.randomUUID().toString();
 		
-		System.out.println(password);
 		System.out.println(result);
 		
 		
