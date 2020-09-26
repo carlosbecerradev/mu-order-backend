@@ -14,6 +14,8 @@ public class MailService {
 
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	private MailContentBuilder mailContentBuilder;
 	
 	public void sendMail(NotificationEmail notificationEmail) {
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
@@ -22,7 +24,9 @@ public class MailService {
 			messageHelper.setFrom("myemail@etc.com");
 			messageHelper.setSubject(notificationEmail.getSubject());
 			messageHelper.setTo(notificationEmail.getRecipient());
-			messageHelper.setText(notificationEmail.getBody());
+			messageHelper.setText(
+					mailContentBuilder.build(notificationEmail.getBody())
+					);
 		};
 			try {
 				mailSender.send(messagePreparator);
