@@ -11,12 +11,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.chars.muguildbusiness.dto.NotificationEmail;
 import com.chars.muguildbusiness.dto.RegisterRequest;
 import com.chars.muguildbusiness.model.entity.Role;
 import com.chars.muguildbusiness.model.entity.Usuario;
 import com.chars.muguildbusiness.model.entity.VerificationEmailToken;
 import com.chars.muguildbusiness.model.repository.IUsuarioRepository;
 import com.chars.muguildbusiness.model.repository.VerificationEmailTokenRepository;
+import com.chars.muguildbusiness.service.MailService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -25,7 +27,10 @@ public class AuthServiceImpl implements AuthService {
 	private IUsuarioRepository usuarioRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
 	private VerificationEmailTokenRepository verificationEmailTokenRepository;
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public void signup(RegisterRequest registerRequest) {
@@ -43,6 +48,16 @@ public class AuthServiceImpl implements AuthService {
 		usuarioRepository.save(usuario);
 		
 		String token = generateVerificationEmailToken(usuario);
+		
+		// 
+		NotificationEmail notificationEmail = new NotificationEmail();
+		notificationEmail.setSubject("Please activate your account");
+		notificationEmail.setRecipient(usuario.getEmail());
+		notificationEmail.setBody("Thank you for signing up to Mu guild business, "
+				+ "please click on the below url to activate your acount: "
+				+ "http://localhost:8080/api/auth/verification/" + token);
+		
+		mailService.sendMail(notificationEmail);
 		
 	}
 
