@@ -22,7 +22,10 @@ public class AuthController {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest){
-		authService.signup(registerRequest);
+		boolean flag = authService.signup(registerRequest);
+		if (flag == false) {
+			return new ResponseEntity<>("User Already exist", HttpStatus.OK);
+		}
 		return new ResponseEntity<>("User Registration Successful", HttpStatus.OK);
 	}
 	

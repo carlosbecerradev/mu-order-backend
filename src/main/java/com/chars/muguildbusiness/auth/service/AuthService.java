@@ -4,7 +4,7 @@ import com.chars.muguildbusiness.dto.RegisterRequest;
 
 public interface AuthService {
 
-	public void signup(RegisterRequest registerRequest);
+	public boolean signup(RegisterRequest registerRequest);
 
 	public void verifyAccount(String token);
 }

@@ -33,7 +33,13 @@ public class AuthServiceImpl implements AuthService {
 	private MailService mailService;
 
 	@Override
-	public void signup(RegisterRequest registerRequest) {
+	public boolean signup(RegisterRequest registerRequest) {
+		
+		boolean flag = verififyRegisterRequest(registerRequest);
+		
+		if (flag == false) {
+			return false;
+		}
 		
 		Usuario usuario = new Usuario();
 		usuario.setUsername(registerRequest.getUsername());
@@ -58,7 +64,21 @@ public class AuthServiceImpl implements AuthService {
 				+ "http://localhost:8080/api/auth/verification/" + token);
 		
 		mailService.sendMail(notificationEmail);
+		return true;
+	}
+
+	@Transactional(readOnly = true)
+	private boolean verififyRegisterRequest(RegisterRequest registerRequest) {
+		String username, email;
+		username = registerRequest.getUsername();
+		email = registerRequest.getEmail();
 		
+		if (usuarioRepository.existsByUsername(username) || 
+				usuarioRepository.existsByEmail(email)) {
+			return false;
+		}		
+		
+		return true;
 	}
 
 	@Transactional

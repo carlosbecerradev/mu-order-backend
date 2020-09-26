@@ -11,4 +11,6 @@ import com.chars.muguildbusiness.model.entity.Usuario;
 public interface IUsuarioRepository extends CrudRepository<Usuario, Long> {
 
 	Optional<Usuario> findByUsername(String username);
+	boolean existsByUsername(String username);
+	boolean existsByEmail(String email);
 }
