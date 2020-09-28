@@ -2,6 +2,8 @@ package com.chars.muguildbusiness.auth.filter;
 
 import java.io.IOException;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,12 +58,34 @@ public class JwtAuthenticationFilter extends
 
 		username = username.trim();
 
-		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
+		UsernamePasswordAuthenticationToken authRequest = 
+				new UsernamePasswordAuthenticationToken(
 				username, password);
 		
 		return authenticationManager.authenticate(authRequest);
 	}
 
+	@Override
+	protected void successfulAuthentication(HttpServletRequest request, 
+			HttpServletResponse response, FilterChain chain,
+			Authentication authResult) throws IOException, ServletException {
+
+		response.getWriter().write("Your login was successfully!");
+		response.setStatus(200);
+		
+	}
+
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, 
+			HttpServletResponse response,
+			AuthenticationException failed) throws IOException, ServletException {
+
+		response.getWriter().write("Your username or password are incorrect!");
+		response.setStatus(401);
+		
+	}
+
+	
 	
 	
 }
