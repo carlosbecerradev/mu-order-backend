@@ -1,6 +1,8 @@
 package com.chars.muguildbusiness.auth.filter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.chars.muguildbusiness.auth.service.JwtService;
 import com.chars.muguildbusiness.dto.LoginRequest;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -23,10 +26,12 @@ public class JwtAuthenticationFilter extends
 	UsernamePasswordAuthenticationFilter {
 	
 	private AuthenticationManager authenticationManager;
+	private JwtService jwtService;
 
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtService jwtService) {
 		this.authenticationManager = authenticationManager;
 		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/login", "POST"));
+		this.jwtService = jwtService;
 	}
 
 	@Override
@@ -69,9 +74,19 @@ public class JwtAuthenticationFilter extends
 	protected void successfulAuthentication(HttpServletRequest request, 
 			HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-
-		response.getWriter().write("Your login was successfully!");
+		
+		String token = jwtService.create(authResult);
+		
+		response.setHeader("Authorization", "Bearer " + token);
+		
+		Map<String, Object> body = new HashMap<String, Object>();
+		body.put("token", token);
+		body.put("user", authResult.getPrincipal());
+		body.put("message", "Your login was successfully!");
+		
+		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(200);
+		response.setContentType("application/json");
 		
 	}
 
