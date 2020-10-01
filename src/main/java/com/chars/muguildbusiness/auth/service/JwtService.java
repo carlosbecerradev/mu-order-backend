@@ -8,4 +8,8 @@ public interface JwtService {
 
 	String create(Authentication authResult) throws IOException;
 
+	boolean validate(String header);
+
+	String getUsernameFromToken(String header);
+
 }

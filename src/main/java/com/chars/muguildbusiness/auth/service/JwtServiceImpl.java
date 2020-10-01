@@ -6,6 +6,7 @@ import java.security.Key;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.Collection;
@@ -20,13 +21,14 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 
 @Service
 public class JwtServiceImpl implements JwtService {
 
-	public static final long ONE_MINUTE_TO_MILLIS = 60000L;
-	public static final long EXPIRATION_TIME = ONE_MINUTE_TO_MILLIS*1;
+	public final long ONE_MINUTE_TO_MILLIS = 60000L;
+	public final long EXPIRATION_TIME = ONE_MINUTE_TO_MILLIS*5;
 	
 	private KeyStore keyStore;
 	
@@ -71,6 +73,48 @@ public class JwtServiceImpl implements JwtService {
 			throw new RuntimeException("Exception ocurred while retrieving private key from keystore", e);
 		}
 
+	}
+
+	@Override
+	public boolean validate(String header) {
+		try {
+			getClaims(header);
+			return true;
+		} catch (JwtException | IllegalArgumentException e) {
+			return false;
+		}
+	}
+
+	private Claims getClaims(String header) {
+
+		Claims claims = Jwts.parserBuilder()
+						.setSigningKey(getPublicKey())
+						.build()
+						.parseClaimsJws(resolveToken(header))
+						.getBody();
+		return claims;
+	}
+
+	private String resolveToken(String header) {
+		if(header != null && header.startsWith("Bearer ")) {
+			return header.replace("Bearer", "");
+		}
+		return null;
+	}
+
+	private PublicKey getPublicKey() {
+
+		try {
+			return keyStore.getCertificate("muguildbusiness").getPublicKey();
+		} catch (KeyStoreException e) {
+			throw new RuntimeException("Exception ocurred while " +
+					"retrieving public key from keystore");
+		}
+	}
+
+	@Override
+	public String getUsernameFromToken(String header) {
+		return getClaims(header).getSubject();
 	}
 	
 	
