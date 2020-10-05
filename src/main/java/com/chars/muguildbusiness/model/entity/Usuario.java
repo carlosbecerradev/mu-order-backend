@@ -22,6 +22,8 @@ public class Usuario implements Serializable {
 	
 	@Column(unique = true, length = 60)
 	private String email;
+	@Column(unique = true, length = 20)
+	private String nickname;
 	private Boolean enabled;
 	
 	private Instant created;
@@ -29,6 +31,10 @@ public class Usuario implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private List<Role> roles;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private List<Order> orders;
 
 	public Long getUser_id() {
 		return user_id;
@@ -66,7 +72,7 @@ public class Usuario implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public Boolean getEnabled() {
 		return enabled;
 	}
@@ -81,6 +87,22 @@ public class Usuario implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 	
 	
