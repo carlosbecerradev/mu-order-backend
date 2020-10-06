@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,19 +20,21 @@ public class ItemCategory implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long item_category_id;
+	@Column(length = 50, unique = true, nullable = false)
 	private String name;
+	@Column(nullable = false)
 	private Boolean enabled;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_category_id")
+	@JoinColumn(name = "item_category_id", nullable = false)
 	private List<ItemCategoryOption> itemCategoryOptions;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_category_id")
+	@JoinColumn(name = "item_category_id", nullable = false)
 	private List<ItemCategoryType> itemCategoryTypes;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_category_id")
+	@JoinColumn(name = "item_category_id", nullable = false)
 	private List<Item> items;
 
 	public Long getItem_category_id() {

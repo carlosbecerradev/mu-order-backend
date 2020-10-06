@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,11 +20,13 @@ public class ItemType implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long item_type_id;
+	@Column(unique = true, length = 20, nullable = false)
 	private String name;
+	@Column(nullable = false)
 	private Boolean enabled;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_type_id")
+	@JoinColumn(name = "item_type_id", nullable = false)
 	private List<ItemCategoryType> itemCategoryTypes;
 
 	public Long getItem_type_id() {

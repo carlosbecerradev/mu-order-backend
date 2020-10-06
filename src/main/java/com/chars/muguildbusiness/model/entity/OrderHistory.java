@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,20 +12,25 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "orders_history")
+@Table(name = "orders_history", uniqueConstraints = {
+		@UniqueConstraint(columnNames = {"order_history_id", "order_id"} )}
+)
 public class OrderHistory implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long order_history_id;
+	@Column(nullable = false)
 	private Long mate_id;
+	@Column(length = 50)
 	private String price;
 	private String observation;
 	private Instant created;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_id")
+	@JoinColumn(name = "order_id", nullable = false)
 	private Order order;
 
 	public Long getOrder_history_id() {

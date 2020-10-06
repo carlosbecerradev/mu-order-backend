@@ -14,26 +14,26 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long user_id;
 	
-	@Column(unique = true, length = 20)
+	@Column(unique = true, length = 20, nullable = false)
 	private String username;
 	
-	@Column(length = 60)
+	@Column(length = 60, nullable = false)
 	private String password;
 	
-	@Column(unique = true, length = 60)
+	@Column(unique = true, length = 60, nullable = false)
 	private String email;
-	@Column(unique = true, length = 20)
+	@Column(unique = true, length = 20, nullable = false)
 	private String nickname;
+	@Column(nullable = false)
 	private Boolean enabled;
-	
 	private Instant created;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
 	private List<Role> roles;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
 	private List<Order> orders;
 
 	public Long getUser_id() {
