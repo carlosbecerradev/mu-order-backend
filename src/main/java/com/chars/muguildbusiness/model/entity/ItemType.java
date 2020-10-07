@@ -25,8 +25,7 @@ public class ItemType implements Serializable {
 	@Column(nullable = false)
 	private Boolean enabled;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_type_id", nullable = false)
+	@OneToMany(mappedBy = "itemType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ItemCategoryType> itemCategoryTypes;
 
 	public Long getItem_type_id() {

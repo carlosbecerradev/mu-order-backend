@@ -32,8 +32,7 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "user_id", nullable = false)
 	private List<Role> roles;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", nullable = false)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Order> orders;
 
 	public Long getUser_id() {

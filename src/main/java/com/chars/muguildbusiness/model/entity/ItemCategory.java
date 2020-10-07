@@ -25,16 +25,13 @@ public class ItemCategory implements Serializable {
 	@Column(nullable = false)
 	private Boolean enabled;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_category_id", nullable = false)
+	@OneToMany(mappedBy = "itemCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ItemCategoryOption> itemCategoryOptions;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_category_id", nullable = false)
+	@OneToMany(mappedBy = "itemCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ItemCategoryType> itemCategoryTypes;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_category_id", nullable = false)
+	@OneToMany(mappedBy = "itemCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Item> items;
 
 	public Long getItem_category_id() {

@@ -3,11 +3,15 @@ package com.chars.muguildbusiness.model.entity;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +30,14 @@ public class Order implements Serializable {
 	@Column(nullable = false)
 	private Boolean enabled;
 	private Instant created;
+	
+	@ManyToOne
+	@JoinColumn(name = "item_id", nullable = false)
+	private Item item;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private Usuario user;
 	
 	public Long getOrder_id() {
 		return order_id;
@@ -68,6 +80,18 @@ public class Order implements Serializable {
 	}
 	public void setCreated(Instant created) {
 		this.created = created;
+	}
+	public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
+	public Usuario getUser() {
+		return user;
+	}
+	public void setUser(Usuario user) {
+		this.user = user;
 	}
 	
 	

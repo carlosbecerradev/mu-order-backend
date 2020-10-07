@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -27,10 +28,13 @@ public class Item implements Serializable {
 	private String name;
 	@Column(nullable = false)
 	private Boolean enabled;	
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_id", nullable = false)
+	
+	@OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Order> orders;
+	
+	@ManyToOne
+	@JoinColumn(name = "item_category_id", nullable = false)
+	private ItemCategory itemCategory;
 
 	public Long getItem_id() {
 		return item_id;
@@ -62,6 +66,14 @@ public class Item implements Serializable {
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
-	}	
+	}
+
+	public ItemCategory getItemCategory() {
+		return itemCategory;
+	}
+
+	public void setItemCategory(ItemCategory itemCategory) {
+		this.itemCategory = itemCategory;
+	}
 	
 }
