@@ -2,10 +2,11 @@ package com.chars.muguildbusiness.dto;
 
 public class OrderRequest {
 	private Long Id;
-	private String itemPption;
+	private String itemOption;
 	private String itemType;
 	private Byte itemLevel;
 	private String observation;
+	private Long itemId;
 	
 	public Long getId() {
 		return Id;
@@ -13,11 +14,11 @@ public class OrderRequest {
 	public void setId(Long id) {
 		Id = id;
 	}
-	public String getItemPption() {
-		return itemPption;
+	public String getItemOption() {
+		return itemOption;
 	}
-	public void setItemPption(String itemPption) {
-		this.itemPption = itemPption;
+	public void setItemOption(String itemPption) {
+		this.itemOption = itemPption;
 	}
 	public String getItemType() {
 		return itemType;
@@ -36,6 +37,12 @@ public class OrderRequest {
 	}
 	public void setObservation(String observation) {
 		this.observation = observation;
+	}
+	public Long getItemId() {
+		return itemId;
+	}
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
 	}
 	
 }
