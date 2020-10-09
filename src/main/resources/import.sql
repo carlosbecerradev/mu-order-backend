@@ -43,6 +43,8 @@ INSERT INTO item_types(name, enabled) VALUES ("Normal", 1);
 INSERT INTO orders(item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Puedo pagar wc', 1, 2, 1);
 INSERT INTO orders(item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Only Luck", 'Ancient', 13, 'Ando sin WC', 1, 4, 1);
 INSERT INTO orders(item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES (null, null, 13, 'Puedo pagar wc', 1, 1, 1);
+INSERT INTO orders(item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES (null, null, 13, 'Para el CS', 0, 1, 1);
+INSERT INTO orders(item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Para hoy', 1, 2, 1);
 
 /* Orders History */
 INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (2, '10k WC', 'Me rebajo el precio', 1);

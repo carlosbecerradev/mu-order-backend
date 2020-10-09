@@ -29,7 +29,9 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional(readOnly = true)
 	public List<OrderResponse> findAll() {	
 		return orderRepository.findAll()
-				.stream().map(this::mapToDto)
+				.stream()
+				.filter(order -> order.getEnabled())
+				.map(this::mapToDto)
 				.collect(Collectors.toList());		
 	}
 	
