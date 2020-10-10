@@ -79,9 +79,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<OrderResponse> findAllByItemName(String itemName) {
-		// TODO Auto-generated method stub
-		return null;
+		Item item = itemService.findByName(itemName);
+		
+		return orderRepository.findByItem(item)
+				.stream()
+				.filter(order -> order.getEnabled())
+				.map(this::mapToDto)
+				.collect(Collectors.toList());
 	}
 
 	@Override
