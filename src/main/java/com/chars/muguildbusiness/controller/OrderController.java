@@ -27,7 +27,18 @@ public class OrderController {
 	private OrderService orderService;
 
 	@GetMapping
-	public ResponseEntity<List<OrderResponse>> get(){
+	public ResponseEntity<List<OrderResponse>> get(
+			@RequestParam(value = "itemName", required = false) String itemName,
+			@RequestParam(value = "itemCategoryName", required = false) String itemCategoryName
+			){
+		
+		if(itemName != null) {
+			return new ResponseEntity<>(orderService.findAllByItemName(itemName), HttpStatus.OK);
+		}
+		if(itemCategoryName != null) {
+			return new ResponseEntity<>(orderService.findAllByItemCategoryName(itemCategoryName), HttpStatus.OK);
+		}
+		
 		return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
 	}
 	
@@ -38,13 +49,4 @@ public class OrderController {
 		return new ResponseEntity<>("Order was created", HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{itenName}")
-	public ResponseEntity<List<OrderResponse>> getAllByItemName(@PathVariable String itenName){
-		return new ResponseEntity<>(orderService.findAllByItemName(itenName), HttpStatus.OK);
-	}
-	
-	@GetMapping("/itemCategory/")
-	public ResponseEntity<List<OrderResponse>> getAllByItemCategoryName(@RequestParam(value = "itenCategoryName", required = false) String itenCategoryName){
-		return new ResponseEntity<>(orderService.findAllByItemCategoryName(itenCategoryName), HttpStatus.OK);
-	}
 }
