@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.chars.muguildbusiness.dto.OrderRequest;
 import com.chars.muguildbusiness.dto.OrderResponse;
 import com.chars.muguildbusiness.model.entity.Item;
+import com.chars.muguildbusiness.model.entity.ItemCategory;
 import com.chars.muguildbusiness.model.entity.Order;
 import com.chars.muguildbusiness.model.entity.Usuario;
 import com.chars.muguildbusiness.model.repository.IItemRepository;
@@ -27,6 +28,8 @@ public class OrderServiceImpl implements OrderService {
 	private ItemService itemService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ItemCategoryService itemCategoryService;
 
 	@Override
 	public void save(OrderRequest orderRequest, String username) {
@@ -91,9 +94,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName) {
-		// TODO Auto-generated method stub
-		return null;
+		ItemCategory itemCategory = itemCategoryService.findByName(itemCategoryName);
+		
+		return orderRepository.findByItemItemCategory(itemCategory)
+				.stream()
+				.filter(order -> order.getEnabled())
+				.map(this::mapToDto)
+				.collect(Collectors.toList());
 	}
 
 	@Override

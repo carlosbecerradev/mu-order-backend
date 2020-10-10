@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chars.muguildbusiness.dto.OrderRequest;
@@ -40,5 +41,10 @@ public class OrderController {
 	@GetMapping("/{itenName}")
 	public ResponseEntity<List<OrderResponse>> getAllByItemName(@PathVariable String itenName){
 		return new ResponseEntity<>(orderService.findAllByItemName(itenName), HttpStatus.OK);
+	}
+	
+	@GetMapping("/itemCategory/")
+	public ResponseEntity<List<OrderResponse>> getAllByItemCategoryName(@RequestParam(value = "itenCategoryName", required = false) String itenCategoryName){
+		return new ResponseEntity<>(orderService.findAllByItemCategoryName(itenCategoryName), HttpStatus.OK);
 	}
 }
