@@ -32,10 +32,13 @@ public class OrderServiceImpl implements OrderService {
 	private ItemCategoryService itemCategoryService;
 
 	@Override
+	@Transactional
 	public void save(OrderRequest orderRequest, String username) {
-		Usuario user = userService.findByUsername(username);
+		Usuario user = userService.findByUsername(username);	
 		
-		Order order = mapToEntity(orderRequest);
+		Order order = new Order();		
+		order = mapToEntity(orderRequest, order);
+		
 		order.setCreated(Instant.now());
 		order.setEnabled(true);
 		order.setUser(user);
@@ -43,8 +46,7 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.save(order);		
 	}
 	
-	private Order mapToEntity(OrderRequest orderRequest) {
-		Order order = new Order();
+	private Order mapToEntity(OrderRequest orderRequest, Order order) {
 		order.setItem_level(orderRequest.getItemLevel());
 		order.setItem_options(orderRequest.getItemOption());
 		order.setItem_type(orderRequest.getItemType());
