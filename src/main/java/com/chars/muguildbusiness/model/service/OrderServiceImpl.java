@@ -126,9 +126,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
+	@Transactional
+	public void delete(Long id, String username) {
+		Usuario user = userService.findByUsername(username);
+		Order order = orderRepository.findById(id).orElse(null);
 		
+		if (user == order.getUser()) {
+			orderRepository.delete(order);			
+		}
 	}
 
 }

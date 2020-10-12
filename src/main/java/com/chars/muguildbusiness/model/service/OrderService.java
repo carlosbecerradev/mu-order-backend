@@ -12,5 +12,5 @@ public interface OrderService {
 	public List<OrderResponse> findAll();
 	public List<OrderResponse> findAllByItemName(String itemName);
 	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName);
-	public void delete(Long id);
+	public void delete(Long id, String username);
 }
