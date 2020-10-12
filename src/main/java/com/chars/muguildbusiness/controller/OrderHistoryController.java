@@ -26,7 +26,7 @@ public class OrderHistoryController {
 	public ResponseEntity<String> create(@RequestBody OrderHistoryRequest orderHistoryRequest, Principal principal){
 		String username = principal.getName();
 		orderHistoryService.save(orderHistoryRequest, username);
-		return status(HttpStatus.OK)
+		return status(HttpStatus.CREATED)
 				.body("Order History was created");
 	}
 	
