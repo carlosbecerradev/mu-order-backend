@@ -5,6 +5,6 @@ import com.chars.muguildbusiness.dto.OrderResponse;
 
 public interface MyOrderService {
 	public List<OrderResponse> findAll(String username);
-	public List<OrderResponse> findAllByItemName(String itemName);
-	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName);
+	public List<OrderResponse> findAllByItemName(String itemName, String username);
+	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName, String username);
 }
