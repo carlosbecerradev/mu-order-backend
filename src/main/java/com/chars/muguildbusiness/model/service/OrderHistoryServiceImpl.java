@@ -1,12 +1,16 @@
 package com.chars.muguildbusiness.model.service;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.chars.muguildbusiness.dto.OrderHistoryRequest;
+import com.chars.muguildbusiness.dto.OrderHistoryResponse;
+import com.chars.muguildbusiness.model.entity.Item;
 import com.chars.muguildbusiness.model.entity.Order;
 import com.chars.muguildbusiness.model.entity.OrderHistory;
 import com.chars.muguildbusiness.model.entity.Usuario;
@@ -45,6 +49,38 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 		orderHistory.setObservation(orderHistoryRequest.getObservation());
 		orderHistory.setPrice(orderHistoryRequest.getPrice());
 		return orderHistory;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<OrderHistoryResponse> findAll(String username) {
+		Usuario user = userRepository.findByUsername(username).orElse(null);
+		return orderHistoryRepositoty.findByOrderUser(user)
+				.stream()
+				.map(this::mapToDto)
+				.collect(Collectors.toList());
+	}
+	
+	private OrderHistoryResponse mapToDto(OrderHistory orderHistory) {
+		OrderHistoryResponse orderHistoryResponse = new OrderHistoryResponse();
+		
+		orderHistoryResponse.setCreatedAt(orderHistory.getCreated());
+		orderHistoryResponse.setId(orderHistory.getOrder_history_id());
+		
+		Order order = orderHistory.getOrder();
+		orderHistoryResponse.setItemLevel(order.getItem_level());
+		orderHistoryResponse.setItemOption(order.getItem_options());
+		orderHistoryResponse.setItemType(order.getItem_type());
+		
+		Item item = orderHistory.getOrder().getItem();
+		orderHistoryResponse.setItemName(item.getName());
+		
+		Usuario mate = userRepository.findById(orderHistory.getMate_id()).orElse(null);
+		orderHistoryResponse.setMateNickname(mate.getNickname());
+		orderHistoryResponse.setObservation(orderHistory.getObservation());
+		orderHistoryResponse.setPrice(orderHistory.getPrice());
+		
+		return orderHistoryResponse;
 	}
 
 }
