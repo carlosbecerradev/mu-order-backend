@@ -29,19 +29,18 @@ public class OrderController {
 	private OrderService orderService;
 
 	@GetMapping
-	public ResponseEntity<List<OrderResponse>> get(
-			@RequestParam(value = "itemName", required = false) String itemName,
-			@RequestParam(value = "itemCategoryName", required = false) String itemCategoryName
-			){
-		
-		if(itemName != null) {
-			return new ResponseEntity<>(orderService.findAllByItemName(itemName), HttpStatus.OK);
-		}
-		if(itemCategoryName != null) {
-			return new ResponseEntity<>(orderService.findAllByItemCategoryName(itemCategoryName), HttpStatus.OK);
-		}
-		
+	public ResponseEntity<List<OrderResponse>> getAll(){
 		return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/by-item/{itemName}")
+	public ResponseEntity<List<OrderResponse>> getAllByItem(@PathVariable String itemName){
+		return new ResponseEntity<>(orderService.findAllByItemName(itemName), HttpStatus.OK);		
+	}
+	
+	@GetMapping("/by-item-category/{itemCategoryName}")
+	public ResponseEntity<List<OrderResponse>> getAllByItemCategory(@PathVariable String itemCategoryName){
+		return new ResponseEntity<>(orderService.findAllByItemCategoryName(itemCategoryName), HttpStatus.OK);				
 	}
 	
 	@PostMapping
