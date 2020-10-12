@@ -32,6 +32,13 @@ public class OrderServiceImpl implements OrderService {
 	private ItemCategoryService itemCategoryService;
 
 	@Override
+	@Transactional(readOnly = true)
+	public OrderResponse findById(Long id) {
+		Order order = orderRepository.findById(id).orElse(null);
+		return mapToDto(order);
+	}
+
+	@Override
 	@Transactional
 	public void save(OrderRequest orderRequest, String username) {
 		Usuario user = userService.findByUsername(username);	
@@ -44,6 +51,17 @@ public class OrderServiceImpl implements OrderService {
 		order.setUser(user);
 		
 		orderRepository.save(order);		
+	}
+
+	@Override
+	@Transactional
+	public void edit(OrderRequest orderRequest, String username) {
+		Usuario user = userService.findByUsername(username);		
+		Order order = orderRepository.findById(orderRequest.getId()).orElse(null);
+		
+		if(user == order.getUser()) {
+			orderRepository.save(mapToEntity(orderRequest, order));			
+		}
 	}
 	
 	private Order mapToEntity(OrderRequest orderRequest, Order order) {

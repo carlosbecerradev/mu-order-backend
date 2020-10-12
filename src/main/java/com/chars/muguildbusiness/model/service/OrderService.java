@@ -6,7 +6,9 @@ import com.chars.muguildbusiness.dto.OrderRequest;
 import com.chars.muguildbusiness.dto.OrderResponse;
 
 public interface OrderService {
+	public OrderResponse findById(Long id);
 	public void save(OrderRequest orderRequest, String username);
+	public void edit(OrderRequest orderRequest, String username);
 	public List<OrderResponse> findAll();
 	public List<OrderResponse> findAllByItemName(String itemName);
 	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName);

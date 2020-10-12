@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +48,18 @@ public class OrderController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		orderService.save(order, auth.getName());
 		return new ResponseEntity<>("Order was created", HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<OrderResponse> getOrder(@PathVariable Long id){
+		return new ResponseEntity<>(orderService.findById(id), HttpStatus.OK);
+	}
+		
+	@PutMapping
+	public ResponseEntity<String> edit(@RequestBody OrderRequest order){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		orderService.edit(order, auth.getName());
+		return new ResponseEntity<>("Order was edited", HttpStatus.OK);
 	}
 	
 }
