@@ -42,6 +42,8 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 		Order order = orderRepository.findById(orderHistoryRequest.getOrderId()).orElse(null);
 		
 		if (user == order.getUser()) {
+			order = finishOrder(order);
+			
 			OrderHistory orderHistory = new OrderHistory();
 			orderHistory = mapToEntity(orderHistoryRequest, orderHistory);
 			orderHistory.setCreated(Instant.now());
@@ -49,6 +51,13 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 			
 			orderHistoryRepositoty.save(orderHistory);
 		}		
+	}
+	
+	@Transactional(readOnly = false)
+	private Order finishOrder(Order order) {
+		order.setEnabled(false);
+		orderRepository.save(order);
+		return order;
 	}
 	
 	private OrderHistory mapToEntity(OrderHistoryRequest orderHistoryRequest, OrderHistory orderHistory) {
