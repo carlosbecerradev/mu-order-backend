@@ -47,4 +47,11 @@ public class OrderHistoryController {
 		return status(HttpStatus.OK)
 				.body(orderHistoryService.findAllByItemCategoryName(itemCategoryName, username));
 	}
+	
+	@GetMapping("/by-item/{itemName}")
+	public ResponseEntity<List<OrderHistoryResponse>> getAllByItem(@PathVariable String itemName, Principal principal){
+		String username = principal.getName();
+		return status(HttpStatus.OK)
+				.body(orderHistoryService.findAllByItemName(itemName, username));
+	}
 }

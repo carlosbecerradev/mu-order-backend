@@ -16,6 +16,7 @@ import com.chars.muguildbusiness.model.entity.Order;
 import com.chars.muguildbusiness.model.entity.OrderHistory;
 import com.chars.muguildbusiness.model.entity.Usuario;
 import com.chars.muguildbusiness.model.repository.IItemCategoryRepository;
+import com.chars.muguildbusiness.model.repository.IItemRepository;
 import com.chars.muguildbusiness.model.repository.IOrderHistoryRepository;
 import com.chars.muguildbusiness.model.repository.IOrderRepository;
 import com.chars.muguildbusiness.model.repository.IUsuarioRepository;
@@ -31,6 +32,8 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 	private IOrderRepository orderRepository;
 	@Autowired
 	private IItemCategoryRepository itemCategoryRepository;
+	@Autowired
+	private IItemRepository itemRepository;
 	
 	@Override
 	@Transactional
@@ -72,6 +75,18 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 		ItemCategory itemCategory = itemCategoryRepository.findByName(itemCategoryName).orElse(null);
 		
 		return orderHistoryRepositoty.findByOrderItemItemCategoryAndOrderUser(itemCategory, user)
+				.stream()
+				.map(this::mapToDto)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<OrderHistoryResponse> findAllByItemName(String itemName, String username) {
+		Usuario user = userRepository.findByUsername(username).orElse(null);
+		Item item = itemRepository.findByName(itemName).orElse(null);
+		
+		return orderHistoryRepositoty.findByOrderItemAndOrderUser(item, user)
 				.stream()
 				.map(this::mapToDto)
 				.collect(Collectors.toList());
