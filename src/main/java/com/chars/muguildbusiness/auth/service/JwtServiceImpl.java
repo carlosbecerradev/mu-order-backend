@@ -28,7 +28,7 @@ import io.jsonwebtoken.Jwts;
 public class JwtServiceImpl implements JwtService {
 
 	public final long ONE_MINUTE_TO_MILLIS = 60000L;
-	public final long EXPIRATION_TIME = ONE_MINUTE_TO_MILLIS*5;
+	public final long EXPIRATION_TIME = ONE_MINUTE_TO_MILLIS*60*4;
 	
 	private KeyStore keyStore;
 	
