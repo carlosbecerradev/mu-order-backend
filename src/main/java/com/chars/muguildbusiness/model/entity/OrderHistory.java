@@ -30,7 +30,7 @@ public class OrderHistory implements Serializable {
 	private Instant created;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_id", nullable = false)
+	@JoinColumn(name = "order_id", unique = true, nullable = false)
 	private Order order;
 
 	public Long getOrder_history_id() {
