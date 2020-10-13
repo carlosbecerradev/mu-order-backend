@@ -8,4 +8,5 @@ import com.chars.muguildbusiness.dto.OrderHistoryResponse;
 public interface OrderHistoryService {
 	public void save(OrderHistoryRequest orderHistoryRequest, String username);
 	public List<OrderHistoryResponse> findAll(String username);
+	public List<OrderHistoryResponse> findAllByItemCategoryName(String itemCategoryName, String username);
 }

@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.chars.muguildbusiness.dto.OrderHistoryRequest;
 import com.chars.muguildbusiness.dto.OrderHistoryResponse;
 import com.chars.muguildbusiness.model.entity.Item;
+import com.chars.muguildbusiness.model.entity.ItemCategory;
 import com.chars.muguildbusiness.model.entity.Order;
 import com.chars.muguildbusiness.model.entity.OrderHistory;
 import com.chars.muguildbusiness.model.entity.Usuario;
+import com.chars.muguildbusiness.model.repository.IItemCategoryRepository;
 import com.chars.muguildbusiness.model.repository.IOrderHistoryRepository;
 import com.chars.muguildbusiness.model.repository.IOrderRepository;
 import com.chars.muguildbusiness.model.repository.IUsuarioRepository;
@@ -27,6 +29,8 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 	private IUsuarioRepository userRepository;
 	@Autowired
 	private IOrderRepository orderRepository;
+	@Autowired
+	private IItemCategoryRepository itemCategoryRepository;
 	
 	@Override
 	@Transactional
@@ -56,6 +60,18 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 	public List<OrderHistoryResponse> findAll(String username) {
 		Usuario user = userRepository.findByUsername(username).orElse(null);
 		return orderHistoryRepositoty.findByOrderUser(user)
+				.stream()
+				.map(this::mapToDto)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<OrderHistoryResponse> findAllByItemCategoryName(String itemCategoryName, String username) {
+		Usuario user = userRepository.findByUsername(username).orElse(null);
+		ItemCategory itemCategory = itemCategoryRepository.findByName(itemCategoryName).orElse(null);
+		
+		return orderHistoryRepositoty.findByOrderItemItemCategoryAndOrderUser(itemCategory, user)
 				.stream()
 				.map(this::mapToDto)
 				.collect(Collectors.toList());

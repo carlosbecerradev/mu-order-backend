@@ -53,6 +53,12 @@ INSERT INTO orders(item_options, item_type, item_level, observation, enabled, it
 /* Orders History */
 INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (2, '10k WC', 'Me rebajo el precio', 1);
 INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (2, null, 'Me lo regalo', 2);
+INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (1, '5k WC', 'Me rebajo el precio', 3);
+INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (1, null, 'Me lo regalo', 4);
+INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (2, '10k WC', 'Me rebajo el precio', 5);
+INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (2, null, 'Me lo regalo', 6);
+INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (1, '15k WC', 'Me rebajo el precio', 7);
+INSERT INTO orders_history(mate_id, price, observation, order_id) VALUES (1, null, 'Me lo regalo', 8);
 
 /* Item Category Options */
 INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (1, 1);
