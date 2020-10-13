@@ -31,7 +31,7 @@ public class MyOrderServiceImpl implements MyOrderService {
 	public List<OrderResponse> findAll(String username) {
 		Usuario user = userService.findByUsername(username);
 		
-		return orderRepository.findByEnabledTrueAndUser(user)
+		return orderRepository.findByEnabledTrueAndUserOrderByCreatedDesc(user)
 				.stream()
 				.map(this::mapToDto)
 				.collect(Collectors.toList());
@@ -43,7 +43,7 @@ public class MyOrderServiceImpl implements MyOrderService {
 		Usuario user = userService.findByUsername(username);
 		Item item = itemService.findByName(itemName);
 				
-		return orderRepository.findByEnabledTrueAndUserAndItem(user, item)
+		return orderRepository.findByEnabledTrueAndUserAndItemOrderByCreatedDesc(user, item)
 				.stream()
 				.map(this::mapToDto)
 				.collect(Collectors.toList());
@@ -55,7 +55,7 @@ public class MyOrderServiceImpl implements MyOrderService {
 		Usuario user = userService.findByUsername(username);
 		ItemCategory itemCategory = itemCategoryService.findByName(itemCategoryName);
 		
-		return orderRepository.findByEnabledTrueAndUserAndItemItemCategory(user, itemCategory)
+		return orderRepository.findByEnabledTrueAndUserAndItemItemCategoryOrderByCreatedDesc(user, itemCategory)
 				.stream()
 				.map(this::mapToDto)
 				.collect(Collectors.toList());

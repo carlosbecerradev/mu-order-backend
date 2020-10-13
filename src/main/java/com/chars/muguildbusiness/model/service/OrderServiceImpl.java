@@ -77,9 +77,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<OrderResponse> findAll() {	
-		return orderRepository.findAll()
+		return orderRepository.findByEnabledTrueOrderByCreatedDesc()
 				.stream()
-				.filter(order -> order.getEnabled())
 				.map(this::mapToDto)
 				.collect(Collectors.toList());		
 	}
@@ -103,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderResponse> findAllByItemName(String itemName) {
 		Item item = itemService.findByName(itemName);
 		
-		return orderRepository.findByEnabledTrueAndItem(item)
+		return orderRepository.findByEnabledTrueAndItemOrderByCreatedDesc(item)
 				.stream()
 				.map(this::mapToDto)
 				.collect(Collectors.toList());
@@ -114,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName) {
 		ItemCategory itemCategory = itemCategoryService.findByName(itemCategoryName);
 		
-		return orderRepository.findByEnabledTrueAndItemItemCategory(itemCategory)
+		return orderRepository.findByEnabledTrueAndItemItemCategoryOrderByCreatedDesc(itemCategory)
 				.stream()
 				.map(this::mapToDto)
 				.collect(Collectors.toList());
