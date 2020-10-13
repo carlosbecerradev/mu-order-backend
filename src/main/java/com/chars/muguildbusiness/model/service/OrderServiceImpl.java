@@ -103,9 +103,8 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderResponse> findAllByItemName(String itemName) {
 		Item item = itemService.findByName(itemName);
 		
-		return orderRepository.findByItem(item)
+		return orderRepository.findByEnabledTrueAndItem(item)
 				.stream()
-				.filter(order -> order.getEnabled())
 				.map(this::mapToDto)
 				.collect(Collectors.toList());
 	}
@@ -115,9 +114,8 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName) {
 		ItemCategory itemCategory = itemCategoryService.findByName(itemCategoryName);
 		
-		return orderRepository.findByItemItemCategory(itemCategory)
+		return orderRepository.findByEnabledTrueAndItemItemCategory(itemCategory)
 				.stream()
-				.filter(order -> order.getEnabled())
 				.map(this::mapToDto)
 				.collect(Collectors.toList());
 	}

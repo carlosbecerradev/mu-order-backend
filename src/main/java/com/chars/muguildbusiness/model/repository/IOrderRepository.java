@@ -12,8 +12,8 @@ import com.chars.muguildbusiness.model.entity.Usuario;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<Order, Long> {
-	List<Order> findByItem(Item item);
-	List<Order> findByItemItemCategory(ItemCategory itemCategory);
+	List<Order> findByEnabledTrueAndItem(Item item);
+	List<Order> findByEnabledTrueAndItemItemCategory(ItemCategory itemCategory);
 	
 	List<Order> findByEnabledTrueAndUser(Usuario user);
 	List<Order> findByEnabledTrueAndUserAndItem(Usuario user, Item item);
