@@ -2,7 +2,6 @@ package com.chars.muguildbusiness.model.service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,7 @@ import com.chars.muguildbusiness.model.entity.Item;
 import com.chars.muguildbusiness.model.entity.ItemCategory;
 import com.chars.muguildbusiness.model.entity.Order;
 import com.chars.muguildbusiness.model.entity.Usuario;
-import com.chars.muguildbusiness.model.repository.IItemRepository;
 import com.chars.muguildbusiness.model.repository.IOrderRepository;
-import com.chars.muguildbusiness.model.repository.IUsuarioRepository;
 
 @Service
 public class OrderServiceImpl implements OrderService {
