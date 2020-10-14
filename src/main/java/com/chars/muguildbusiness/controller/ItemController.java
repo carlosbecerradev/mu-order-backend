@@ -25,6 +25,6 @@ public class ItemController {
 	@GetMapping("/{itemName}")
 	public ResponseEntity<List<ItemResponse>> getFirstResultsByName(@PathVariable String itemName){
 		return status(HttpStatus.OK)
-				.body(itemService.findByNameFirstResults(itemName));
+				.body(itemService.findFirstResultsByName(itemName));
 	}
 }

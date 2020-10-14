@@ -9,5 +9,5 @@ public interface ItemService {
 	public Item findById(Long id);
 	public Item findByName(String name);
 	
-	public List<ItemResponse> findByNameFirstResults(String name);
+	public List<ItemResponse> findFirstResultsByName(String name);
 }
