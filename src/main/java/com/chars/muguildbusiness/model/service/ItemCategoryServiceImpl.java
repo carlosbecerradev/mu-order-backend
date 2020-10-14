@@ -18,18 +18,6 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
 	private IItemCategoryRepository itemCategoryRepository;
 	
 	@Override
-	public ItemCategoryResponse findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemCategoryResponse findByItemId(Long itemId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	@Transactional(readOnly = true)
 	public ItemCategory findByName(String name) {
 		return itemCategoryRepository.findByName(name)
