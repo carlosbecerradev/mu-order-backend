@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chars.muguildbusiness.dto.ItemOptionsAndTypes;
 import com.chars.muguildbusiness.dto.ItemResponse;
 import com.chars.muguildbusiness.model.service.ItemService;
 
@@ -26,5 +27,11 @@ public class ItemController {
 	public ResponseEntity<List<ItemResponse>> getFirstResultsByName(@PathVariable String itemName){
 		return status(HttpStatus.OK)
 				.body(itemService.findFirstResultsByName(itemName));
+	}
+
+	@GetMapping("/options-and-types/{id}")
+	public ResponseEntity<ItemOptionsAndTypes> getItemOptionsAndTypes(@PathVariable Long id){
+		return status(HttpStatus.OK)
+				.body(itemService.findItemOptionsAndTypes(id));
 	}
 }
