@@ -8,5 +8,6 @@ import com.chars.muguildbusiness.model.entity.Item;
 public interface ItemService {
 	public Item findById(Long id);
 	public Item findByName(String name);
-	public List<ItemResponse> findAllByName(String name);
+	
+	public List<ItemResponse> findByNameFirstResults(String name);
 }
