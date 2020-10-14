@@ -38,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<ItemResponse> findFirstResultsByName(String name) {
-		return itemRepository.findByNameIgnoreCaseContaining(name, PageRequest.of(0, FIRST_RESULTS))
+		return itemRepository.findByEnabledTrueAndNameIgnoreCaseContaining(name, PageRequest.of(0, FIRST_RESULTS))
 				.stream()
 				.map(this::mapToDto)
 				.collect(Collectors.toList());
