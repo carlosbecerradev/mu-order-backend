@@ -1,5 +1,8 @@
 package com.chars.muguildbusiness.model.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +34,23 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
 	public ItemCategory findByName(String name) {
 		return itemCategoryRepository.findByName(name)
 				.orElse(null);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<ItemCategoryResponse> findAll() {
+		return itemCategoryRepository.findByEnabledTrue()
+				.stream()
+				.map(this::mapToDto)
+				.collect(Collectors.toList());
+	}
+	
+	private ItemCategoryResponse mapToDto(ItemCategory itemCategory) {
+		ItemCategoryResponse itemCategoryResponse = new ItemCategoryResponse();
+		itemCategoryResponse.setId(itemCategory.getItem_category_id());
+		itemCategoryResponse.setName(itemCategory.getName());
+		
+		return itemCategoryResponse;
 	}
 
 }
