@@ -66,6 +66,11 @@ INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (2, 1
 INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (3, 1);
 INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (4, 1);
 INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (1, 6);
+INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (2, 2);
+INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (3, 5);
+INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (4, 4);
+INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (1, 7);
+INSERT INTO item_category_options(item_option_id, item_category_id) VALUES (2, 7);
 
 /* Item Category Types */
 INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (1, 1);
@@ -74,3 +79,9 @@ INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (3, 1);
 INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (4, 1);
 INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (1, 6);
 INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (3, 6);
+INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (2, 5);
+INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (3, 4);
+INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (4, 3);
+INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (1, 2);
+INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (3, 7);
+INSERT INTO item_category_types(item_type_id, item_category_id) VALUES (1, 7);
