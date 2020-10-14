@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends
 
 	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtService jwtService) {
 		this.authenticationManager = authenticationManager;
-		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/login", "POST"));
+		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/auth/login", "POST"));
 		this.jwtService = jwtService;
 	}
 
