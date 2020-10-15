@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.chars.muguildbusiness.auth.service.JwtService;
+import com.chars.muguildbusiness.dto.AuthenticationResponse;
 import com.chars.muguildbusiness.dto.LoginRequest;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -79,10 +80,10 @@ public class JwtAuthenticationFilter extends
 		
 		response.setHeader("Authorization", "Bearer " + token);
 		
-		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("token", token);
-		body.put("user", authResult.getPrincipal());
-		body.put("message", "Your login was successfully!");
+		AuthenticationResponse body = new AuthenticationResponse();
+		body.setAuthenticationToken(token);
+		body.setMessage("Your login was successfully!");
+		body.setUsername(authResult.getName());
 		
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(200);
