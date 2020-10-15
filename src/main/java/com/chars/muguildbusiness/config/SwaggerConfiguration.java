@@ -1,7 +1,12 @@
 package com.chars.muguildbusiness.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.chars.muguildbusiness.dto.AuthenticationResponse;
+import com.chars.muguildbusiness.dto.LoginRequest;
+import com.fasterxml.classmate.TypeResolver;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -14,13 +19,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
+	@Autowired
+	private TypeResolver typeResolver;
 	
 	@Bean
 	public Docket muGuildBusinessApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
-					.select()
+					.select()					
 					.apis(RequestHandlerSelectors.basePackage("com.chars.muguildbusiness.controller"))
 					.build()
+					.pathMapping("/")
+					.additionalModels(typeResolver.resolve(LoginRequest.class))
+					.additionalModels(typeResolver.resolve(AuthenticationResponse.class))
 					.apiInfo(getApiInfo());
 	}
 
