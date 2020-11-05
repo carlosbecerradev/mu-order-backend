@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public class OrderResponse {
 	private Long id;
-	private String itemName;
+	private ItemResponse item;
 	private String itemOption;
 	private String itemType;
 	private Byte itemLevel;
@@ -18,11 +18,11 @@ public class OrderResponse {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getItemName() {
-		return itemName;
+	public ItemResponse getItem() {
+		return item;
 	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setItem(ItemResponse item) {
+		this.item = item;
 	}
 	public String getItemOption() {
 		return itemOption;

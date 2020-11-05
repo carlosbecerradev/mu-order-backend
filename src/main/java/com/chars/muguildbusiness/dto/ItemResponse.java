@@ -1,14 +1,14 @@
 package com.chars.muguildbusiness.dto;
 
 public class ItemResponse {
-	private Long item_id;
+	private Long id;
 	private String name;
 	
-	public Long getItem_id() {
-		return item_id;
+	public Long getId() {
+		return id;
 	}
-	public void setItem_id(Long item_id) {
-		this.item_id = item_id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;

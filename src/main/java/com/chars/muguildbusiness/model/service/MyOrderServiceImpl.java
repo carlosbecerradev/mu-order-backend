@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.chars.muguildbusiness.dto.ItemResponse;
 import com.chars.muguildbusiness.dto.OrderResponse;
 import com.chars.muguildbusiness.model.entity.Item;
 import com.chars.muguildbusiness.model.entity.ItemCategory;
@@ -64,7 +65,7 @@ public class MyOrderServiceImpl implements MyOrderService {
 	private OrderResponse mapToDto(Order order) {
 		OrderResponse orderResponse = new OrderResponse();
 		orderResponse.setId(order.getOrder_id());
-		orderResponse.setItemName(order.getItem().getName());
+		orderResponse.setItem(mapToDto(order.getItem()));
 		orderResponse.setCreatedAt(order.getCreated());
 		orderResponse.setItemLevel(order.getItem_level());
 		orderResponse.setItemOption(order.getItem_options());
@@ -73,6 +74,14 @@ public class MyOrderServiceImpl implements MyOrderService {
 		orderResponse.setObservation(order.getObservation());
 		
 		return orderResponse;
+	}
+	
+	private ItemResponse mapToDto(Item item) {
+		ItemResponse itemResponse = new ItemResponse();
+		itemResponse.setId(item.getItem_id());
+		itemResponse.setName(item.getName());
+		
+		return itemResponse;
 	}
 
 }

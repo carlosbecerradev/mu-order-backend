@@ -55,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
 	
 	private ItemResponse mapToDto(Item item) {
 		ItemResponse itemResponse = new ItemResponse();
-		itemResponse.setItem_id(item.getItem_id());
+		itemResponse.setId(item.getItem_id());
 		itemResponse.setName(item.getName());
 		
 		return itemResponse;
