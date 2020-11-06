@@ -4,15 +4,12 @@ import java.time.Instant;
 
 public class OrderHistoryResponse {
 	private Long id;
-	private String mateNickname;
+	private UserResponse user;
 	private String price;
 	private String observation;
 	private Instant createdAt;
 	
-	private String itemName;
-	private String itemOption;
-	private String itemType;
-	private Byte itemLevel;
+	private OrderResponse order;
 	
 	public Long getId() {
 		return id;
@@ -20,11 +17,11 @@ public class OrderHistoryResponse {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getMateNickname() {
-		return mateNickname;
+	public UserResponse getUser() {
+		return user;
 	}
-	public void setMateNickname(String mateNickname) {
-		this.mateNickname = mateNickname;
+	public void setUser(UserResponse user) {
+		this.user = user;
 	}
 	public String getPrice() {
 		return price;
@@ -44,29 +41,11 @@ public class OrderHistoryResponse {
 	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
-	public String getItemName() {
-		return itemName;
+	public OrderResponse getOrder() {
+		return order;
 	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-	public String getItemOption() {
-		return itemOption;
-	}
-	public void setItemOption(String itemOption) {
-		this.itemOption = itemOption;
-	}
-	public String getItemType() {
-		return itemType;
-	}
-	public void setItemType(String itemType) {
-		this.itemType = itemType;
-	}
-	public Byte getItemLevel() {
-		return itemLevel;
-	}
-	public void setItemLevel(Byte itemLevel) {
-		this.itemLevel = itemLevel;
+	public void setOrder(OrderResponse order) {
+		this.order = order;
 	}
 	
 }

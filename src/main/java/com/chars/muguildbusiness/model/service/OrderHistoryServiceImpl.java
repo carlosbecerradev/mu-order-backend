@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.chars.muguildbusiness.dto.ItemResponse;
 import com.chars.muguildbusiness.dto.OrderHistoryRequest;
 import com.chars.muguildbusiness.dto.OrderHistoryResponse;
+import com.chars.muguildbusiness.dto.OrderResponse;
+import com.chars.muguildbusiness.dto.UserResponse;
 import com.chars.muguildbusiness.model.entity.Item;
 import com.chars.muguildbusiness.model.entity.ItemCategory;
 import com.chars.muguildbusiness.model.entity.Order;
@@ -106,21 +109,41 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 		
 		orderHistoryResponse.setCreatedAt(orderHistory.getCreated());
 		orderHistoryResponse.setId(orderHistory.getOrder_history_id());
-		
-		Order order = orderHistory.getOrder();
-		orderHistoryResponse.setItemLevel(order.getItem_level());
-		orderHistoryResponse.setItemOption(order.getItem_options());
-		orderHistoryResponse.setItemType(order.getItem_type());
-		
-		Item item = orderHistory.getOrder().getItem();
-		orderHistoryResponse.setItemName(item.getName());
-		
-		Usuario mate = userRepository.findById(orderHistory.getMate_id()).orElse(null);
-		orderHistoryResponse.setMateNickname(mate.getNickname());
 		orderHistoryResponse.setObservation(orderHistory.getObservation());
+		orderHistoryResponse.setOrder(mapToDto(orderHistory.getOrder()));
 		orderHistoryResponse.setPrice(orderHistory.getPrice());
+		orderHistoryResponse.setUser(mapToDto(orderHistory.getOrder().getUser()));
 		
 		return orderHistoryResponse;
+	}
+	
+	private OrderResponse mapToDto(Order order) {
+		OrderResponse orderResponse = new OrderResponse();
+		orderResponse.setId(order.getOrder_id());
+		orderResponse.setItem(mapToDto(order.getItem()));
+		orderResponse.setCreatedAt(order.getCreated());
+		orderResponse.setItemLevel(order.getItem_level());
+		orderResponse.setItemOption(order.getItem_options());
+		orderResponse.setItemType(order.getItem_type());
+		orderResponse.setNickname(order.getUser().getNickname());
+		orderResponse.setObservation(order.getObservation());
+		
+		return orderResponse;
+	}
+	
+	private ItemResponse mapToDto(Item item) {
+		ItemResponse itemResponse = new ItemResponse();
+		itemResponse.setId(item.getItem_id());
+		itemResponse.setName(item.getName());
+		
+		return itemResponse;
+	}
+	
+	private UserResponse mapToDto(Usuario usuario) {
+		UserResponse userResponse = new UserResponse();
+		userResponse.setId(usuario.getUser_id());
+		userResponse.setNickname(usuario.getNickname());
+		return userResponse;
 	}
 
 }
