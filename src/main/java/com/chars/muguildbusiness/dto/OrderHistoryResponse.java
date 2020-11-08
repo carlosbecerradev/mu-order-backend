@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public class OrderHistoryResponse {
 	private Long id;
-	private UserResponse user;
+	private UserResponse mate;
 	private String price;
 	private String observation;
 	private Instant createdAt;
@@ -17,11 +17,11 @@ public class OrderHistoryResponse {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public UserResponse getUser() {
-		return user;
+	public UserResponse getMate() {
+		return mate;
 	}
-	public void setUser(UserResponse user) {
-		this.user = user;
+	public void setMate(UserResponse mate) {
+		this.mate = mate;
 	}
 	public String getPrice() {
 		return price;

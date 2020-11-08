@@ -112,7 +112,8 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 		orderHistoryResponse.setObservation(orderHistory.getObservation());
 		orderHistoryResponse.setOrder(mapToDto(orderHistory.getOrder()));
 		orderHistoryResponse.setPrice(orderHistory.getPrice());
-		orderHistoryResponse.setUser(mapToDto(orderHistory.getOrder().getUser()));
+		Usuario mate = userRepository.findById(orderHistory.getMate_id()).orElse(null);
+		orderHistoryResponse.setMate(mapToDto(mate));
 		
 		return orderHistoryResponse;
 	}
