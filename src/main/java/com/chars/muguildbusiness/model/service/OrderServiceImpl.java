@@ -1,10 +1,10 @@
 package com.chars.muguildbusiness.model.service;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,11 +77,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderResponse> findAll() {	
-		return orderRepository.findByEnabledTrueOrderByCreatedDesc()
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());		
+	public Page<OrderResponse> findAll(Pageable pageable) {	
+		return orderRepository.findByEnabledTrueOrderByCreatedDesc(pageable)
+				.map(this::mapToDto);		
 	}
 	
 	private OrderResponse mapToDto(Order order) {
@@ -108,24 +106,20 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderResponse> findAllByItemName(String itemName) {
+	public Page<OrderResponse> findAllByItemName(String itemName, Pageable pageable) {
 		Item item = itemService.findByName(itemName);
 		
-		return orderRepository.findByEnabledTrueAndItemOrderByCreatedDesc(item)
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());
+		return orderRepository.findByEnabledTrueAndItemOrderByCreatedDesc(item, pageable)
+				.map(this::mapToDto);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName) {
+	public Page<OrderResponse> findAllByItemCategoryName(String itemCategoryName, Pageable pageable) {
 		ItemCategory itemCategory = itemCategoryService.findByName(itemCategoryName);
 		
-		return orderRepository.findByEnabledTrueAndItemItemCategoryOrderByCreatedDesc(itemCategory)
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());
+		return orderRepository.findByEnabledTrueAndItemItemCategoryOrderByCreatedDesc(itemCategory, pageable)
+				.map(this::mapToDto);
 	}
 
 	@Override
