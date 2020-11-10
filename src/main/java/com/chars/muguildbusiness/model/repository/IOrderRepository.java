@@ -1,7 +1,5 @@
 package com.chars.muguildbusiness.model.repository;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +16,7 @@ public interface IOrderRepository extends JpaRepository<Order, Long> {
 	Page<Order> findByEnabledTrueAndItemOrderByCreatedDesc(Item item, Pageable pageable);
 	Page<Order> findByEnabledTrueAndItemItemCategoryOrderByCreatedDesc(ItemCategory itemCategory, Pageable pageable);
 	
-	List<Order> findByEnabledTrueAndUserOrderByCreatedDesc(Usuario user);
-	List<Order> findByEnabledTrueAndUserAndItemOrderByCreatedDesc(Usuario user, Item item);
-	List<Order> findByEnabledTrueAndUserAndItemItemCategoryOrderByCreatedDesc(Usuario user, ItemCategory itemCategory);
+	Page<Order> findByEnabledTrueAndUserOrderByCreatedDesc(Usuario user, Pageable pageable);
+	Page<Order> findByEnabledTrueAndUserAndItemOrderByCreatedDesc(Usuario user, Item item, Pageable pageable);
+	Page<Order> findByEnabledTrueAndUserAndItemItemCategoryOrderByCreatedDesc(Usuario user, ItemCategory itemCategory, Pageable pageable);
 }

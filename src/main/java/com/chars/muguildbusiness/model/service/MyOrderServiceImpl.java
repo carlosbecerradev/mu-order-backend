@@ -1,9 +1,8 @@
 package com.chars.muguildbusiness.model.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,37 +28,31 @@ public class MyOrderServiceImpl implements MyOrderService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderResponse> findAll(String username) {
+	public Page<OrderResponse> findAll(String username, Pageable pageable) {
 		Usuario user = userService.findByUsername(username);
 		
-		return orderRepository.findByEnabledTrueAndUserOrderByCreatedDesc(user)
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());
+		return orderRepository.findByEnabledTrueAndUserOrderByCreatedDesc(user, pageable)
+				.map(this::mapToDto);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderResponse> findAllByItemName(String itemName, String username) {
+	public Page<OrderResponse> findAllByItemName(String itemName, String username, Pageable pageable) {
 		Usuario user = userService.findByUsername(username);
 		Item item = itemService.findByName(itemName);
 				
-		return orderRepository.findByEnabledTrueAndUserAndItemOrderByCreatedDesc(user, item)
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());
+		return orderRepository.findByEnabledTrueAndUserAndItemOrderByCreatedDesc(user, item, pageable)
+				.map(this::mapToDto);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName, String username) {
+	public Page<OrderResponse> findAllByItemCategoryName(String itemCategoryName, String username, Pageable pageable) {
 		Usuario user = userService.findByUsername(username);
 		ItemCategory itemCategory = itemCategoryService.findByName(itemCategoryName);
 		
-		return orderRepository.findByEnabledTrueAndUserAndItemItemCategoryOrderByCreatedDesc(user, itemCategory)
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());
+		return orderRepository.findByEnabledTrueAndUserAndItemItemCategoryOrderByCreatedDesc(user, itemCategory, pageable)
+				.map(this::mapToDto);
 	}
 	
 	private OrderResponse mapToDto(Order order) {

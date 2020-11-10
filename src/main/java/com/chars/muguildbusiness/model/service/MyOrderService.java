@@ -1,10 +1,12 @@
 package com.chars.muguildbusiness.model.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.chars.muguildbusiness.dto.OrderResponse;
 
 public interface MyOrderService {
-	public List<OrderResponse> findAll(String username);
-	public List<OrderResponse> findAllByItemName(String itemName, String username);
-	public List<OrderResponse> findAllByItemCategoryName(String itemCategoryName, String username);
+	public Page<OrderResponse> findAll(String username, Pageable pageable);
+	public Page<OrderResponse> findAllByItemName(String itemName, String username, Pageable pageable);
+	public Page<OrderResponse> findAllByItemCategoryName(String itemCategoryName, String username, Pageable pageable);
 }
