@@ -1,4 +1,4 @@
-/* Agregando usuario y sus roles */
+﻿/* Agregando usuario y sus roles */
 INSERT INTO `users` (username, password, email, enabled, created, nickname) VALUES ('chars', '$2a$10$Oi/S83ZRGEBMyN5P/lloZOm9cVtnosTNCiJ5ClQEV4A25vhWpkToS','chars@up.com', 1,'2020-06-16', 'Chars');
 INSERT INTO `users` (username, password, email, enabled, created, nickname) VALUES ('admin', '$2a$10$dUu/ixrZAV9AlfmkcYYkY.7OFpSDUWBTvzSZP8Mbxf9MMAfKJTlLi','adm@up.com', 1,'2020-06-16', 'Administrador');
 
@@ -99,31 +99,31 @@ INSERT INTO `items` (name, item_category_id, enabled) VALUES ("Vicious Dragon Se
 INSERT INTO `items` (name, item_category_id, enabled) VALUES ("Vicious Ring of Earth", 8, 1);
 
 /* Orders */
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Puedo pagar wc', 1, 1, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES (null, null, 0, 'Puedo pagar wc', 1, 2, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES (null, null, 13, 'Para el CS', 0, 3, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Para el fin de semana', 1, 4, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", null, 0, 'Para el Domingo', 1, 5, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Para Mañana', 0, 6, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", null, 13, 'Para Mañana', 1, 7, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 0, 'Para Mañana', 1, 8, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Normal', 13, 'Para Mañana', 0, 9, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Para hoy', 1, 10, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Me mandan un mensaje a +51 911222111', 1, 11, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 0, 'Para el CS', 0, 12, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Para el CS', 1, 13, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 0, 'Para el CS', 1, 14, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Para el CS', 0, 15, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Full Options", 'Excellent', 13, 'Doy 500 WC', 1, 16, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Semi Full Options", 'Excellent', 13, 'Doy 500 WC', 1, 17, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Semi Full Options", 'Excellent', 0, 'Doy 500 WC', 0, 18, 2);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("Only Luck", 'Ancient', 0, 'Ando sin WC', 1, 19, 1);
-INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id) VALUES ("No Options", null, 0, null, 1, 20, 2);
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 13, 'Puedo pagar wc', 1, 1, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES (null, null, 0, 'Puedo pagar wc', 1, 2, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES (null, null, 13, 'Para el CS', 0, 3, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 13, 'Para el fin de semana', 1, 4, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", null, 0, 'Para el Domingo', 1, 5, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 13, 'Para Mañana', 0, 6, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", null, 13, 'Para Mañana', 1, 7, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 0, 'Para Mañana', 1, 8, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Normal', 13, 'Para Mañana', 0, 9, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 13, 'Para hoy', 1, 10, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 13, 'Me mandan un mensaje a +51 911222111', 1, 11, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 0, 'Para el CS', 0, 12, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 13, 'Para el CS', 1, 13, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 0, 'Para el CS', 1, 14, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 13, 'Para el CS', 0, 15, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Full Options", 'Excellent', 13, 'Doy 500 WC', 1, 16, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Semi Full Options", 'Excellent', 13, 'Doy 500 WC', 1, 17, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Semi Full Options", 'Excellent', 0, 'Doy 500 WC', 0, 18, 2, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("Only Luck", 'Ancient', 0, 'Ando sin WC', 1, 19, 1, now());
+INSERT INTO `orders` (item_options, item_type, item_level, observation, enabled, item_id, user_id, created) VALUES ("No Options", null, 0, null, 1, 20, 2, now());
 
 /* Orders History */
-INSERT INTO `orders_history` (mate_id, price, observation, order_id) VALUES (2, '10k WC', 'Me rebajo el precio', 3);
-INSERT INTO `orders_history` (mate_id, price, observation, order_id) VALUES (1, null, 'Me lo regalo', 6);
-INSERT INTO `orders_history` (mate_id, price, observation, order_id) VALUES (2, null, 'Me lo regalo', 9);
-INSERT INTO `orders_history` (mate_id, price, observation, order_id) VALUES (1, null, 'Me lo regalo', 12);
-INSERT INTO `orders_history` (mate_id, price, observation, order_id) VALUES (2, '10k WC', 'Me rebajo el precio', 15);
-INSERT INTO `orders_history` (mate_id, price, observation, order_id) VALUES (1, '5k WC', null, 18);
+INSERT INTO `orders_history` (mate_id, price, observation, order_id, created) VALUES (2, '10k WC', 'Me rebajo el precio', 3, now());
+INSERT INTO `orders_history` (mate_id, price, observation, order_id, created) VALUES (1, null, 'Me lo regalo', 6, now());
+INSERT INTO `orders_history` (mate_id, price, observation, order_id, created) VALUES (2, null, 'Me lo regalo', 9, now());
+INSERT INTO `orders_history` (mate_id, price, observation, order_id, created) VALUES (1, null, 'Me lo regalo', 12, now());
+INSERT INTO `orders_history` (mate_id, price, observation, order_id, created) VALUES (2, '10k WC', 'Me rebajo el precio', 15, now());
+INSERT INTO `orders_history` (mate_id, price, observation, order_id, created) VALUES (1, '5k WC', null, 18, now());
