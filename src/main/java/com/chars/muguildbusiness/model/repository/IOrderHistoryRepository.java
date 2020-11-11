@@ -1,7 +1,7 @@
 package com.chars.muguildbusiness.model.repository;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +12,7 @@ import com.chars.muguildbusiness.model.entity.Usuario;
 
 @Repository
 public interface IOrderHistoryRepository extends JpaRepository<OrderHistory, Long> {
-	public List<OrderHistory> findByOrderUser(Usuario user);
-	public List<OrderHistory> findByOrderItemItemCategoryAndOrderUser(ItemCategory itemCategory, Usuario user);
-	public List<OrderHistory> findByOrderItemAndOrderUser(Item item, Usuario user);
+	public Page<OrderHistory> findByOrderUser(Usuario user, Pageable pageable);
+	public Page<OrderHistory> findByOrderItemItemCategoryAndOrderUser(ItemCategory itemCategory, Usuario user, Pageable pageable);
+	public Page<OrderHistory> findByOrderItemAndOrderUser(Item item, Usuario user, Pageable pageable);
 }

@@ -1,10 +1,10 @@
 package com.chars.muguildbusiness.model.service;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,36 +72,30 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderHistoryResponse> findAll(String username) {
+	public Page<OrderHistoryResponse> findAll(String username, Pageable pageable) {
 		Usuario user = userRepository.findByUsername(username).orElse(null);
-		return orderHistoryRepositoty.findByOrderUser(user)
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());
+		return orderHistoryRepositoty.findByOrderUser(user, pageable)
+				.map(this::mapToDto);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderHistoryResponse> findAllByItemCategoryName(String itemCategoryName, String username) {
+	public Page<OrderHistoryResponse> findAllByItemCategoryName(String itemCategoryName, String username, Pageable pageable) {
 		Usuario user = userRepository.findByUsername(username).orElse(null);
 		ItemCategory itemCategory = itemCategoryRepository.findByName(itemCategoryName).orElse(null);
 		
-		return orderHistoryRepositoty.findByOrderItemItemCategoryAndOrderUser(itemCategory, user)
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());
+		return orderHistoryRepositoty.findByOrderItemItemCategoryAndOrderUser(itemCategory, user, pageable)
+				.map(this::mapToDto);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<OrderHistoryResponse> findAllByItemName(String itemName, String username) {
+	public Page<OrderHistoryResponse> findAllByItemName(String itemName, String username, Pageable pageable) {
 		Usuario user = userRepository.findByUsername(username).orElse(null);
 		Item item = itemRepository.findByName(itemName).orElse(null);
 		
-		return orderHistoryRepositoty.findByOrderItemAndOrderUser(item, user)
-				.stream()
-				.map(this::mapToDto)
-				.collect(Collectors.toList());
+		return orderHistoryRepositoty.findByOrderItemAndOrderUser(item, user, pageable)
+				.map(this::mapToDto);
 	}
 	
 	private OrderHistoryResponse mapToDto(OrderHistory orderHistory) {
